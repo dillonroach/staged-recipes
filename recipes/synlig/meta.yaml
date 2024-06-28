@@ -1,0 +1,60 @@
+{% set version = "2024-03-13-d844d8d" %}
+
+package:
+  name: synlig
+  version: {{ version|replace("-", "_") }}
+
+source:
+  url: https://github.com/chipsalliance/synlig/archive/refs/tags/{{ version }}.tar.gz
+  sha256: 30a3bcc4e73dcad2a9fe9b66ab2d39d1c9cbde28f49350a9741c8dc1a88872d4
+
+build:
+  number: 0
+  skip: true  # [win]
+
+requirements:
+  build:
+    - {{ stdlib('c') }}
+    - {{ compiler('cxx') }}
+    - cmake
+    - make
+    - pkg-config
+    - flex
+    - bison
+    - uhdm
+    - capnproto
+    - surelog
+    - gtest
+  host:
+    - ant
+    - gperftools
+    - uhdm
+    - zlib
+    - python
+    - swig
+    - orderedmultidict
+    - yosys
+    - capnproto
+    - surelog
+    - gtest
+  run:
+    - antlr-cpp-runtime
+    - surelog
+    - yosys
+    - uhdm
+    - python
+
+test:
+  commands:
+    - test -f $PREFIX/bin/synlig
+
+about:
+  home: https://github.com/chipsalliance/synlig
+  license: Apache-2.0
+  license_family: Apache
+  license_file: LICENSE
+  summary: Synlig is a SystemVerilog and UHDM front end plugin for Yosys. It uses Surelog, a SystemVerilog 2017 preprocessor, parser and elaborator. 
+
+extra:
+  recipe-maintainers:
+    - dillonroach
